@@ -39,7 +39,7 @@ int hello_serialise(void) {
     gpio_reset_pin(TRIGGER_GPIO);
     gpio_set_direction(TRIGGER_GPIO, GPIO_MODE_OUTPUT);
 
-    // --- Seed load ---
+    //  Seed load 
     trigger_high();
     printf("[SYNC] BEGIN_SEED\n");
     volatile uint8_t seed[32] = {
@@ -51,7 +51,7 @@ int hello_serialise(void) {
     printf("[SYNC] END_SEED\n");
     trigger_low();
 
-    // --- KeyGen ---
+    // KeyGen 
     int64_t t0 = esp_timer_get_time();
     printf("[SYNC] BEGIN_KEYGEN\n");
     trigger_high();
@@ -60,7 +60,7 @@ int hello_serialise(void) {
     printf("[SYNC] END_KEYGEN\n");
     int64_t t1 = esp_timer_get_time();
 
-    // --- Pack / serialization ---
+    // Pack / serialization 
     int64_t t_pack0 = esp_timer_get_time();
     printf("[SYNC] BEGIN_PACK\n");
     trigger_high();
@@ -70,7 +70,7 @@ int hello_serialise(void) {
     printf("[SYNC] END_PACK\n");
     int64_t t_pack1 = esp_timer_get_time();
 
-    // --- Fingerprints ---
+    // Fingerprints 
     printf("[SYNC] BEGIN_FINGERPRINT\n");
     trigger_high();
     fingerprint_shake256_hex(pk_copy, KYBER_INDCPA_PUBLICKEYBYTES, pk_fp);
@@ -86,9 +86,8 @@ int hello_serialise(void) {
     return 0;
 }
 
-// -------------------- Punto de entrada ESP32 --------------------
+
 void app_main(void) {
-    // Ejecuta tu función principal
     hello_serialise();
 
  
